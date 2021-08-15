@@ -1,11 +1,11 @@
 import asyncHandler from 'express-async-handler'
 import generateToken from '../utils/generateToken.js'
-import User from '../models/Users.js'
+import Customer from '../models/Customers.js'
 
-const authUser = asyncHandler(async (req, res) => {
+const authCustomer = asyncHandler(async (req, res) => {
     const { email, password } = req.body
   
-    const user = await User.findOne({ email })
+    const user = await Customer.findOne({ email })
   
     if (user && (await user.matchPassword(password))) {
       res.json({
@@ -22,10 +22,10 @@ const authUser = asyncHandler(async (req, res) => {
 })
   
 
-const registerUser = asyncHandler(async (req, res) => {
+const registerCustomer = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body
   
-    const userExists = await User.findOne({ email })
+    const userExists = await Customer.findOne({ email })
   
     if (userExists) {
       res.status(400)
@@ -52,4 +52,4 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 })
   
-export {authUser, registerUser}
+export { authCustomer, registerCustomer }
